@@ -21,20 +21,15 @@ Packer now supports 2 types of the language libraries:
 - [Python] - Python libraries
 - [C++] - C++ libraries
 
-And of course Control System Packer is open source with a [public repository][Packer] (to be changed after release) on GitHub.
+## Getting Started
 
-## Installation
-
-- TBA
+You can clone the mechanical system from our branch symbolical-dynamics/lib/dir by running the command:
 
 ```sh
-
+sudo python3 setup.py develop
 ```
 
-- TBA
-```sh
-
-```
+or you can use your own mechanical/electronical system, after following our user guidelines.
 
 ## Development
 
@@ -56,11 +51,11 @@ Method of Lagrange multipliers - strategy for finding the local maxima and minim
 
 ## License
 
-MIT
+[MIT](https://opensource.org/licenses/MIT) 
 
 **Free Software, Hell Yeah!**
 
 
-   [Python]: <https://www.python.org/>
-   [C++]: <http://www.cplusplus.org/>
-   [Packer]: <https://github.com/mirnanoukari/Control-System-Packer>
+[Python]: <https://www.python.org/>
+[C++]: <http://www.cplusplus.org/>
+[Packer]: <https://github.com/mirnanoukari/Control-System-Packer>
