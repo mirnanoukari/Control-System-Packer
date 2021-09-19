@@ -1,5 +1,6 @@
 # Control System Packer
 
+![alt text](https://i.ibb.co/yQbS5J7/Untitled.png)
 
 Control System Packer is a lightweight, low-level program to transform energy equations into the compact libraries for control systems. Packer supports Python 🐍 and C++ 💻libraries.  
 
