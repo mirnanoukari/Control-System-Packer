@@ -38,13 +38,7 @@ And of course Control System Packer is open source with a [public repository][Pa
 
 ## Development
 
-Want to contribute? Great!
-
-Contact us in Telegram:
-[@amortized](https://t.me/amortized)
-[@bearness](https://t.me/bearness)
-[@Mirna\_nu](https://t.me/Mirna_nu)
-[@DefRiseOut](https://t.me/DefRiseOut)
+Want to contribute? Check out our [contribution policy](CONTRIBUTE.md)
 
 ## Glossary
 Packer - a program that allows you to turn input (energy equations) into compact libraries for various programming languages.
