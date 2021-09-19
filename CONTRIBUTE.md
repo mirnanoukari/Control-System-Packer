@@ -14,9 +14,9 @@
 Apply the same steps as for the bug, but change label to "enhancement"
 
 ### Development 
-Want to contribute? Great!
+Want to be a part of the team? Great!
 
-Contact us in Telegram:
+Contact one of us in Telegram:
 [@amortized](https://t.me/amortized)
 [@bearness](https://t.me/bearness)
 [@Mirna\_nu](https://t.me/Mirna_nu)
