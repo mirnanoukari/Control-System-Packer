@@ -51,7 +51,7 @@ Method of Lagrange multipliers - strategy for finding the local maxima and minim
 
 ## License
 
-[MIT](https://opensource.org/licenses/MIT) 
+[MIT](https://github.com/mirnanoukari/Control-System-Packer/blob/main/LICENSE) 
 
 **Free Software, Hell Yeah!**
 
