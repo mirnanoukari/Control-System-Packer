@@ -2,8 +2,6 @@
 
 A documentation for various Control System Packer project design decisions for public reference.
 
-[TOC]
-
 ### 	1. C headers
 
 ​			*why choosing C headers?*
@@ -20,7 +18,7 @@ A documentation for various Control System Packer project design decisions for p
 
 ## Contribution
 
-1. Create a pull request by filling out the [template](https://github.com/Control-System-Packer/Design-decisions/blob/main/TEMPLATE.md) and saving it under a unique name.
+1. Create a pull request by filling out the [template](https://github.com/mirnanoukari/Control-System-Packer/blob/main/Design_decisions/TEMPLATE.md) and saving it under a unique name.
 2. Document for and against arguments.
 3. Document the decision.
 4. Merge pull request.
