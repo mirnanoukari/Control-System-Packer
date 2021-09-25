@@ -23,13 +23,31 @@ Packer now supports 2 types of the language libraries:
 
 ## Getting Started
 
-You can clone the mechanical system from our branch symbolical-dynamics/lib/dir by running the command:
+For using our library, you can clone the mechanical system from our branch symbolical-dynamics/lib/dir by running the command:
 
 ```sh
 sudo python3 setup.py develop
 ```
 
 or you can use your own mechanical/electronical system, after following our user guidelines.
+
+First, you need to import Mechanicalsystem class from euler_lagrange
+
+```python
+from lib.symbolical_dynamics.euler_lagrange import MechanicalSystem
+```
+
+Then initialize the mechanical system coordinates: 
+
+- q (generalized coordinates)
+
+- K (kinetic energy)
+
+- P (potential energy)
+
+- R (rayleigh dissipative function)
+
+  The model then produces an equation, and results a combined terms of potential energy and inertia matrix.
 
 ## Development
 
