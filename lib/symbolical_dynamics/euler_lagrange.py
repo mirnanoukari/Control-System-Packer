@@ -184,22 +184,28 @@ class MechanicalSystem:
         self.h_num = lambdify([self.q, self.dq], self.h)
         return self.h_num
 
-    def get_headers(self, feature_names, dir=''):
+    def get_headers(self, feature_names=None, dir=None):
         """
         Create and save C headers
-        @param feature_names: names for headers, should be dict {'momentum": 'mom_name', 'inertia': 'in_name' ... }
+        @param feature_names: custom names for headers, should be dict {'numerical_momentum": 'mom_name',
+                                                                        'numerical_inertia': 'in_name' ... }
         @param dir: directory to save headers, IT MUST END WITH '/' SYMBOL
         """
         # Default names for headers
-        default_features = {'momentum': self.p, 'inertia': self.D, 'coriolis': self.C,
-                              'potential': self.g, 'combined': self.h}
-        if bool(feature_names):
+        default_features = {'numerical_momentum': self.p, 'numerical_inertia': self.D, 'numerical_coriolis': self.C,
+                            'numerical_potential': self.g, 'numerical_combined': self.h}
+
+        if bool(feature_names is None):
+            numerical_features = default_features.copy()
+        else:
             # Change headers' names if necessary
             numerical_features = {}
             for key in default_features.keys():
                 numerical_features[feature_names[key]] = default_features[key]
-        else:
-            numerical_features = default_features.copy()
+
+        if not os.path.isdir(dir) and dir is not None:
+            # Create new directory if necessary
+            os.mkdir(dir)
 
         for key in numerical_features.keys():
             # For each feature create correcsponding header
@@ -216,9 +222,6 @@ class MechanicalSystem:
                         right_c_code = c_code[i + 2:]
                         break
 
-            if not os.path.isdir(dir) and dir != '':
-                # Create new directory if necessary
-                os.mkdir(dir)
             # Create and save header
             new_header = open(dir + c_name[:-2] + '.h', "w")
             new_header.write(right_c_code)
