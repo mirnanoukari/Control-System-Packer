@@ -1,6 +1,7 @@
 from .misc._diff import diff_symbols
 from sympy import diff, zeros, Matrix, lambdify
 from sympy.utilities.codegen import codegen
+import os
 
 
 # , MatrixSymbol, Eq, eye
@@ -183,17 +184,29 @@ class MechanicalSystem:
         self.h_num = lambdify([self.q, self.dq], self.h)
         return self.h_num
 
-    def get_headers(self):
+    def get_headers(self, feature_names, dir=''):
         """
         Create and save C headers
+        @param feature_names: names for headers, should be dict {'momentum": 'mom_name', 'inertia': 'in_name' ... }
+        @param dir: directory to save headers, IT MUST END WITH '/' SYMBOL
         """
-        numerical_features = {'p': ['momentum', self.p], 'D': ['inertia', self.D], 'C': ['coriolis', self.C],
-                              'g': ['potential', self.g], 'h': ['combined', self.h]}
+        # Default names for headers
+        default_features = {'momentum': self.p, 'inertia': self.D, 'coriolis': self.C,
+                              'potential': self.g, 'combined': self.h}
+        if bool(feature_names):
+            # Change headers' names if necessary
+            numerical_features = {}
+            for key in default_features.keys():
+                numerical_features[feature_names[key]] = default_features[key]
+        else:
+            numerical_features = default_features.copy()
+
         for key in numerical_features.keys():
-            [(c_name, c_code), (h_name, c_header)] = codegen(('numerical_'+numerical_features[key][0],
-                                                              numerical_features[key][1]), "C99",
-                                                             'numerical_'+numerical_features[key][0],
+            # For each feature create correcsponding header
+            [(c_name, c_code), (h_name, c_header)] = codegen((key, numerical_features[key]), "C99", key,
                                                              header=False, empty=False)
+            # Since generated code includes itself by default
+            # Cut first line of a code
             k = 0
             right_c_code = str()
             for i in range(len(c_code)):
@@ -202,7 +215,12 @@ class MechanicalSystem:
                     if k > 1:
                         right_c_code = c_code[i + 2:]
                         break
-            new_header = open(c_name[:-2] + '.h', "w")
+
+            if not os.path.isdir(dir) and dir != '':
+                # Create new directory if necessary
+                os.mkdir(dir)
+            # Create and save header
+            new_header = open(dir + c_name[:-2] + '.h', "w")
             new_header.write(right_c_code)
 
     # //////////////////////////////////
