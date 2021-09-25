@@ -1,5 +1,7 @@
 from .misc._diff import diff_symbols
 from sympy import diff, zeros, Matrix, lambdify
+from sympy.utilities.codegen import codegen
+
 
 # , MatrixSymbol, Eq, eye
 # from sympy.utilities.codegen import codegen
@@ -59,18 +61,30 @@ class MechanicalSystem:
         print("System was destructed")
 
     def set_kinetic_energy(self, expr):
-        '''Set the kinetic energy of system as expression 
-           of generalized coordinates and velocities K(q,dq)'''
+        """
+        Set the kinetic energy of system as expression
+        of generalized coordinates and velocities K(q,dq)
+        @param expr: expression for kinetic energy
+        @return:
+        """
         self.K = expr
 
     def set_potential_energy(self, expr):
-        '''Set the potential energy of system as expression 
-           of generalized coordinates P(q)'''
+        """
+        Set the potential energy of system as expression
+        of generalized coordinates P(q)
+        @param expr: expression for potential energy
+        @return:
+        """
         self.P = expr
 
     def set_rayleigh(self, expr):
-        '''Set the rayleigh function of system as expression 
-           of generalized coordinates and velocities R(q, dq)'''
+        """
+        Set the rayleigh function of system as expression
+        of generalized coordinates and velocities R(q, dq)
+        @param expr:
+        @return:
+        """
         self.R = expr
 
     # /////////////////////////
@@ -78,10 +92,12 @@ class MechanicalSystem:
     # /////////////////////////
 
     def get_lagrange_equations(self, simp=False):
-        '''Calculate the dynamical terms using 
-           Euler-Lagrange equations: 
-            dp/dt - dL/dq + dR/dq = Q
-        '''
+        """
+        Calculate the dynamical terms using
+        Euler-Lagrange equations: dp/dt - dL/dq + dR/dq = Q
+        @param simp: simplify expression or not
+        @return:
+        """
         # Calculate Lagrangian
         self.L = self.K - self.P
 
@@ -100,9 +116,9 @@ class MechanicalSystem:
         for i in range(self.n):
             # find the matrix if coriolis and centrifugal
             self.C[i, :] = Matrix([self.p[i]]).jacobian(self.q)
-            - (self.dq).T*diff(self.D, self.q[i])/2
+            - (self.dq).T * diff(self.D, self.q[i]) / 2
             # find the coriolis and centrifugal force
-            self.c[i] = self.C[i, :]*self.dq
+            self.c[i] = self.C[i, :] * self.dq
 
         print('Dynamics is calculated')
 
@@ -116,7 +132,7 @@ class MechanicalSystem:
         self.h = self.c + self.g + self.d
 
         # calculate the final result
-        self.Q = self.D*self.ddq + self.h
+        self.Q = self.D * self.ddq + self.h
 
     # ////////////////////////
     # // Numerical Routines //
@@ -126,36 +142,59 @@ class MechanicalSystem:
     # everything is done via lambdify routine
 
     def get_numerical_momentum(self):
-        '''Return the function of 
-           generalized momenta: p(q, dq)'''
+        """
+        Return the function of
+        generalized momenta: p(q, dq)
+        """
         self.p_num = lambdify([self.q, self.dq], self.p)
+        print(self.p_num)
         return self.p_num
 
     def get_numerical_inertia(self):
-        '''Return the function of 
-           inertia matrix: D(q)'''
+        """
+        Return the function of
+        inertia matrix: D(q)
+        """
         self.D_num = lambdify([self.q], self.D)
         return self.D_num
 
     def get_numerical_coriolis(self):
-        '''Return the function of 
-           coriolis and centrifugal: C(q, dq)'''
+        """
+        Return the function of
+        coriolis and centrifugal: C(q, dq)
+        """
         self.C_num = lambdify([self.q, self.dq], self.C)
         return self.C_num
 
     def get_numerical_potential(self):
-        '''Return the function of 
-           potential forces: g(q)'''
+        """
+        Return the function of
+        potential forces: g(q)
+        """
         self.g_num = lambdify([self.q], self.g)
         return self.g_num
 
     def get_numerical_combined(self):
-        '''Return the function of 
-           combined potential, centrifugal 
-           and dissipative forces: d(q,dq)'''
-        self.h_num = lambdify([self.q, self.dq], self.h) 
+        """
+        Return the function of
+        combined potential, centrifugal
+        and dissipative forces: d(q,dq)
+        """
+        self.h_num = lambdify([self.q, self.dq], self.h)
         return self.h_num
 
+    def get_headers(self):
+        """
+        Create and save C headers
+        """
+        numerical_features = {'p': ['momentum', self.p], 'D': ['inertia', self.D], 'C': ['coriolis', self.C],
+                              'g': ['potential', self.g], 'h': ['combined', self.h]}
+        for key in numerical_features.keys():
+            [(c_name, c_code), (h_name, c_header)] = codegen(('numerical_'+numerical_features[key][0], numerical_features[key][1]), "C99",
+                                                             'numerical_'+numerical_features[key][0],
+                                                             header=False, empty=False)
+            new_header = open(c_name[:-2] + '.h', "w")
+            new_header.write(c_code)
 
     # //////////////////////////////////
     # ///// WORK IN PROGRESS.... ///////
@@ -165,7 +204,7 @@ class MechanicalSystem:
         # self.nD = self.get_numerical_inertia()
         # self.nh = self.get_numerical_combined()
         pass
-    
+
     # Calculate numerical value of state derevitive dxdt = f(x, u)
     def calcStateSpace(self, state, control):
         # q, dq = state[:self.n], state[self.n:]
