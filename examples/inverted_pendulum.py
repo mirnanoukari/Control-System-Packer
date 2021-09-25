@@ -1,5 +1,5 @@
 # # from modeling.mechanics.dynamics import MechanicalSystem
-from symbolical_dynamics.euler_lagrange import MechanicalSystem
+from lib.symbolical_dynamics.euler_lagrange import MechanicalSystem
 from sympy import symbols, cos
 
 # The below provide the equations of inverted pendulum (cart-pole)
@@ -27,3 +27,5 @@ inv_pendulum.get_lagrange_equations(simp=True)
 print(f'\nEquations of motion:\n{inv_pendulum.Q}')
 print(f'\nInertia matrix:\n{inv_pendulum.D}')
 print(f'\nGeneralized momenta:\n{inv_pendulum.p}')
+
+inv_pendulum.get_headers()
