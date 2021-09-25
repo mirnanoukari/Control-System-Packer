@@ -190,11 +190,20 @@ class MechanicalSystem:
         numerical_features = {'p': ['momentum', self.p], 'D': ['inertia', self.D], 'C': ['coriolis', self.C],
                               'g': ['potential', self.g], 'h': ['combined', self.h]}
         for key in numerical_features.keys():
-            [(c_name, c_code), (h_name, c_header)] = codegen(('numerical_'+numerical_features[key][0], numerical_features[key][1]), "C99",
+            [(c_name, c_code), (h_name, c_header)] = codegen(('numerical_'+numerical_features[key][0],
+                                                              numerical_features[key][1]), "C99",
                                                              'numerical_'+numerical_features[key][0],
                                                              header=False, empty=False)
+            k = 0
+            right_c_code = str()
+            for i in range(len(c_code)):
+                if c_code[i] == '"':
+                    k += 1
+                    if k > 1:
+                        right_c_code = c_code[i + 2:]
+                        break
             new_header = open(c_name[:-2] + '.h', "w")
-            new_header.write(c_code)
+            new_header.write(right_c_code)
 
     # //////////////////////////////////
     # ///// WORK IN PROGRESS.... ///////
