@@ -22,7 +22,7 @@ Packer now supports 2 types of the language libraries:
 - [C++] - C++ libraries
 
 ## Getting Started
-
+### Python
 For using our library, you can clone the mechanical system from our branch symbolical-dynamics/lib/dir by running the command:
 
 ```sh
@@ -48,6 +48,9 @@ Then initialize the mechanical system coordinates:
 - R (rayleigh dissipative function)
 
   The model then produces an equation, and results a combined terms of potential energy and inertia matrix.
+### C++
+```
+Under development```
 
 ## Development
 
