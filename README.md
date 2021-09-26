@@ -50,7 +50,8 @@ Then initialize the mechanical system coordinates:
   The model then produces an equation, and results a combined terms of potential energy and inertia matrix.
 ### C++
 ```
-Under development```
+TBD
+```
 
 ## Development
 
