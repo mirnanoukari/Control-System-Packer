@@ -1,0 +1,8 @@
+LICENSE
+MANIFEST.in
+README.md
+setup.py
+symbolical_dynamics.egg-info/PKG-INFO
+symbolical_dynamics.egg-info/SOURCES.txt
+symbolical_dynamics.egg-info/dependency_links.txt
+symbolical_dynamics.egg-info/top_level.txt
