@@ -195,7 +195,6 @@ class MechanicalSystem:
         @param string class_name: Name of the class for C++ file
         """
         # Default names for headers
-        global header_func
         default_features = {'numerical_momentum': self.p, 'numerical_inertia': self.D, 'numerical_coriolis': self.C,
                             'numerical_potential': self.g, 'numerical_combined': self.h}
 
@@ -211,7 +210,7 @@ class MechanicalSystem:
             # Create new directory if necessary
             os.mkdir(dir)
 
-        if not create_cpp:
+        if create_cpp:
             # Array for all created headers to include them later in C++ file
             header_func = []
 
@@ -234,11 +233,11 @@ class MechanicalSystem:
             new_header = open(dir + h_name, "w")
             new_header.write(right_c_code)
             new_header.close()
-            if not create_cpp:
+            if create_cpp:
                 # Save all created headers
                 header_func.append(h_name)
 
-        if not create_cpp:
+        if create_cpp:
             # Create new C++ file
             if file_name is not None:
                 # Create C++ file with custom name if requested
