@@ -69,13 +69,30 @@ name_of_your_system.get_lagrange_equations(simp=True)
 ```
 The model then produces an equation, and results a combined terms of potential energy and inertia matrix.
   
-Great! Now, your system is initialized with values . Below we present the usage of both cases.
-### Python
-### C++
+Great! Now, your system is initialized with values. You can use them both in C, C++ and Python Below we present the usage of both cases.
+#### Python
+```python
+print(f'\nEquations of motion:\n{name_of_your_system.Q}')
+print(f'\nInertia matrix:\n{name_of_your_system.D}')
+print(f'\nGeneralized momenta:\n{name_of_your_system.p}')
 ```
-TBD
+#### C
+First of all, we should generate headers from Python code:
+```python
+name_of_your_system.get_headers()
 ```
-
+Now you can simply import these headers, and use built-in functions to find exact value for any point.
+```c
+#include "numerical_combined.h"
+#include <stdio.h>
+int main(void) {
+   numerical_combined(2,3,4,5,6,7,8,9,0,12,21,result);  // Example of usage of generated headers
+   printf("%d", result[0])
+   return 0;
+}
+```
+#### C++
+> Work in progress...
 ## Development
 
 Want to contribute? Check out our [contribution policy](CONTRIBUTE.md)
