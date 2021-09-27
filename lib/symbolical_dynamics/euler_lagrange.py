@@ -184,12 +184,15 @@ class MechanicalSystem:
         self.h_num = lambdify([self.q, self.dq], self.h)
         return self.h_num
 
-    def get_headers(self, feature_names=None, dir=None):
+    def get_headers(self, feature_names=None, dir=None, create_cpp=False, file_name=None, class_name=None):
         """
         Create and save C headers
-        @param feature_names: custom names for headers, should be dict {'numerical_momentum": 'mom_name',
+        @param dict feature_names: custom names for headers, should be dict {'numerical_momentum": 'mom_name',
                                                                         'numerical_inertia': 'in_name' ... }
-        @param dir: directory to save headers, IT MUST END WITH '/' SYMBOL
+        @param string dir: directory to save headers, IT MUST END WITH '/' SYMBOL
+        @param bool create_cpp: create C++ class or not
+        @param string file_name: name for C++ file
+        @param string class_name: Name of the class for C++ file
         """
         # Default names for headers
         default_features = {'numerical_momentum': self.p, 'numerical_inertia': self.D, 'numerical_coriolis': self.C,
@@ -207,6 +210,10 @@ class MechanicalSystem:
             # Create new directory if necessary
             os.mkdir(dir)
 
+        if create_cpp:
+            # Array for all created headers to include them later in C++ file
+            header_func = []
+
         for key in numerical_features.keys():
             # For each feature create correcsponding header
             [(c_name, c_code), (h_name, c_header)] = codegen((key, numerical_features[key]), "C99", key,
@@ -223,8 +230,34 @@ class MechanicalSystem:
                         break
 
             # Create and save header
-            new_header = open(dir + c_name[:-2] + '.h', "w")
+            new_header = open(dir + h_name, "w")
             new_header.write(right_c_code)
+            new_header.close()
+            if create_cpp:
+                # Save all created headers
+                header_func.append(h_name)
+
+        if create_cpp:
+            # Create new C++ file
+            if file_name is not None:
+                # Create C++ file with custom name if requested
+                cpp_code = open(dir + file_name + ".cpp", "w")
+            else:
+                cpp_code = open(dir + "euler_lagrange.cpp", "w")
+            cpp_code.write("#include <math.h>\n")
+            for header in header_func:
+                # Include all created headers
+                cpp_code.write(f"#include \"{header}\"\n")
+            if class_name is not None:
+                # Create C++ file with custom class name if requested
+                cpp_code.write(f"class {class_name} {{ \n \t public:\n")
+            else:
+                cpp_code.write("class MechanicalSystem {\n \t public:\n")
+            for func in header_func:
+                # Write functions from each header
+                cpp_code.write("\t \t" + open(dir + func, 'r').readlines()[1][:-3] + ";\n")
+            cpp_code.write("};")
+            cpp_code.close()
 
     # //////////////////////////////////
     # ///// WORK IN PROGRESS.... ///////
