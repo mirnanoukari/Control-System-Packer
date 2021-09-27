@@ -84,7 +84,7 @@ First of all, we should generate headers from Python code:
 ```python
 name_of_your_system.get_headers()
 ```
-Now you can simply import these headers, and use built-in functions to find exact value for any point.
+Now you can simply import these headers, and use built-in functions to find exact value for any numerical arguments:
 ```c
 #include "numerical_combined.h"
 #include <stdio.h>
@@ -95,7 +95,14 @@ int main(void) {
 }
 ```
 #### C++
-> Work in progress...
+In your python file, set create_cpp to True and generate an optional cpp class file  (euler_lagrange.cpp) which will include all our headers in it:
+```python
+numerical_combined.get_headers(create_cpp=True)
+```
+The file euler_lagrange.cpp will contain ready-to-use functions and you can import it in your code:
+```cpp
+#include "euler_lagrange.cpp"
+```
 ## Development
 
 Want to contribute? Check out our [contribution policy](CONTRIBUTE.md)
