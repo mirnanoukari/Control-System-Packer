@@ -22,32 +22,55 @@ Packer now supports 2 types of the language libraries:
 - [C++] - C++ libraries
 
 ## Getting Started
-### Python
-For using our library, you can clone the mechanical system from our branch symbolical-dynamics/lib/dir by running the command:
+### Cloning a repository
+1.   Open the command line interface
+2.   Using the command line, access a folder in which you want your project to be saved 
+3.   Type in:    
+ ```sh
+ git clone https://github.com/mirnanoukari/Control-System-Packer.git
+ ```
+### Installing the package
+You can install the package from our branch symbolical-dynamics/lib/dir by running the command:
 
 ```sh
-sudo python3 setup.py develop
+sudo python3 setup.py develop # for Linux
+```
+```sh
+python3 setup.py develop # for Windows
 ```
 
-or you can use your own mechanical/electronical system, after following our user guidelines.
-
-First, you need to import Mechanicalsystem class from euler_lagrange
+### Importing phase
+Then, you need to import Mechanicalsystem class from euler_lagrange
 
 ```python
 from lib.symbolical_dynamics.euler_lagrange import MechanicalSystem
 ```
+### Intiialization of you system
 
-Then initialize the mechanical system coordinates: 
-
+```python
+name_of_your_system = MechanicalSystem(q,K,P,R)
+```
 - q (generalized coordinates)
-
 - K (kinetic energy)
-
 - P (potential energy)
-
 - R (rayleigh dissipative function)
 
-  The model then produces an equation, and results a combined terms of potential energy and inertia matrix.
+Or you can assign values to your mechanical system using set functions:
+
+```python
+name_of_your_system = MechanicalSystem(q)
+name_of_your_system.set_kinetic_energy(K)
+name_of_your_system.set_potential_energy(P)
+name_of_your_system.set_rayleigh(R)
+```
+### Getting lagrange equations
+```python
+name_of_your_system.get_lagrange_equations(simp=True)
+```
+The model then produces an equation, and results a combined terms of potential energy and inertia matrix.
+  
+Great! Now, your system is initialized with values . Below we present the usage of both cases.
+### Python
 ### C++
 ```
 TBD
