@@ -20,7 +20,7 @@ Packer now supports 2 types of the language libraries:
 
 - [Python] - Python libraries
 - [C++] - C++ libraries
-
+- [C] - C headers
 ## Getting Started
 ### Cloning a repository
 1.   Open the command line interface
@@ -96,6 +96,14 @@ int main(void) {
 ## Development
 
 Want to contribute? Check out our [contribution policy](CONTRIBUTE.md)
+## Technical stack
+- [Python] 🐍 
+- [SymPy] (Python) 🧮
+- [PyBind] (Python) 📚
+- [Setuptools] (Python) 🔧
+- [C] 🖥️
+- [C++] 💻
+- [Markdown]📃
 
 ## Glossary
 Packer - a program that allows you to turn input (energy equations) into compact libraries for various programming languages.
@@ -121,3 +129,8 @@ Method of Lagrange multipliers - strategy for finding the local maxima and minim
 [Python]: <https://www.python.org/>
 [C++]: <http://www.cplusplus.org/>
 [Packer]: <https://github.com/mirnanoukari/Control-System-Packer>
+[C]: <https://www.iso.org/standard/74528.html>
+[SymPy]: <https://www.sympy.org/en/index.html>
+[PyBind]: <https://github.com/pybind/pybind11>
+[Setuptools]: <https://pypi.org/project/setuptools/>
+[Markdown]: <https://www.markdownguide.org/>
