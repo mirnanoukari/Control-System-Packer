@@ -62,4 +62,5 @@ print(f'\nEquations of motion:\n{double_pendulum.Q}')
 print(f'\nInertia matrix:\n{double_pendulum.D}')
 print(f'\nGeneralized momenta:\n{double_pendulum.p}')
 
-double_pendulum.get_headers()
+double_pendulum.create_headers()
+double_pendulum.create_cpp_file()
