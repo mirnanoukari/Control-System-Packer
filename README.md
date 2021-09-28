@@ -105,7 +105,7 @@ The file euler_lagrange.cpp will contain ready-to-use functions and you can impo
 ```
 ## Development
 
-Want to contribute? Check out our [contribution policy](CONTRIBUTE.md)
+Want to contribute? Check out our [contribution policy](CONTRIBUTING.md)
 ## Technical stack
 - [Python] 🐍 
 - [SymPy] (Python) 🧮
