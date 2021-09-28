@@ -43,12 +43,12 @@ python3 setup.py develop # for Windows
 ```
 
 ### Importing phase
-Then, you need to import Mechanicalsystem class from euler_lagrange
+Then, you need to import Mechanicalsystem class from euler_lagrange to your mechanical system, use one of our examples in the example folder
 
 ```python
 from lib.symbolical_dynamics.euler_lagrange import MechanicalSystem
 ```
-### Intiialization of you system
+### Intialization of you system
 
 ```python
 name_of_your_system = MechanicalSystem(q,K,P,R)
