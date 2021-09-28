@@ -1,5 +1,8 @@
-# Control System Packer
 
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=mirnanoukari_Control-System-Packer&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=mirnanoukari_Control-System-Packer)
+[![Version](https://img.shields.io/badge/CSPacker-v.%201.0.0-blue)](https://github.com/mirnanoukari/Control-System-Packer)
+[![Version](https://img.shields.io/badge/license-MIT-orange)](https://github.com/mirnanoukari/Control-System-Packer)
+# Control System Packer
 ![alt text](https://i.ibb.co/Ph0x5bG/Untitled.png)
 
 Control System Packer is a lightweight, low-level program to transform energy equations into the compact libraries for control systems. Packer supports Python 🐍, C 💻 and C++ 💻libraries.  
