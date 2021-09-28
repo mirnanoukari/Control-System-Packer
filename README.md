@@ -4,6 +4,25 @@
 
 Control System Packer is a lightweight, low-level program to transform energy equations into the compact libraries for control systems. Packer supports Python 🐍, C 💻 and C++ 💻libraries.  
 
+## Table of Contents
+- [Control System Packer](#control-system-packer)
+  * [Features](#features)
+  * [Why is our project useful and better than the existing solutions?](#why-is-our-project-useful-and-better-than-the-existing-solutions)
+  * [Supported languages](#supported-languages)
+  * [Getting Started](#getting-started)
+    + [Cloning a repository](#cloning-a-repository)
+    + [Installing the package](#installing-the-package)
+    + [Importing phase](#importing-phase)
+      - [Python](#python)
+    + [Intialization of your system](#intialization-of-your-system)
+    + [Getting lagrange equations](#getting-lagrange-equations)
+      - [C](#c)
+      - [C++](#c-1)
+  * [Development](#development)
+  * [Technical stack](#technical-stack)
+  * [Glossary](#glossary)
+  * [License](#license)
+
 ## Features
 
 - Input the energy equations and get a compact library for the chosen language. 
