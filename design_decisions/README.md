@@ -10,7 +10,9 @@ A documentation for various Control System Packer project design decisions for p
 
 ## Design Patterns
 
-### 	Factory Pattern
+### 	Adapter Pattern
+
+![pattern](https://drive.google.com/uc?export=view&id=1tT0nPSWq07iyYftKuTsJAVE8i_pI782d)
 
 ## UML diagrams
 ### Views
