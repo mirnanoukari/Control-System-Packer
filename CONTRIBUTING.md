@@ -1,7 +1,3 @@
-[![Open Source Helpers](https://www.codetriage.com/mirnanoukari/control-system-packer/badges/users.svg)](https://www.codetriage.com/mirnanoukari/control-system-packer)
-[![Version](https://img.shields.io/badge/CSPacker-v.%200.1.1-blue)](https://github.com/mirnanoukari/Control-System-Packer)
-[![Version](https://img.shields.io/badge/license-MIT-orange)](https://github.com/mirnanoukari/Control-System-Packer)
-
 ## How to contribute to CS Packer
 ### Found a bug? 
 1. Go to the issues tab.
