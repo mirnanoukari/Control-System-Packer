@@ -13,8 +13,13 @@ A documentation for various Control System Packer project design decisions for p
 ### 	Factory Pattern
 
 ## UML diagrams
+### Views
 
 ![views](https://drive.google.com/uc?export=view&id=1McffMzsr15ay7Oef5M6L28VvHuLf_vFA)
+
+### Class diagram
+
+![class](https://drive.google.com/uc?export=view&id=1WfqgLHuwCF4okHD4LZZKSLPWPAh1b_Oa)
 
 ## Contribution
 
