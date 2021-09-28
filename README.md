@@ -21,6 +21,7 @@ Control System Packer is a lightweight, low-level program to transform energy eq
   * [Development](#development)
   * [Technical stack](#technical-stack)
   * [Glossary](#glossary)
+  * [Further Development](#further-development)
   * [License](#license)
 
 ## Features
@@ -148,6 +149,8 @@ Energy equations - potential and kinetic energies equations in symbolic format.
 
 Method of Lagrange multipliers - strategy for finding the local maxima and minima of a function subject to equality constraints.
 
+## Further Development
+At the moment, the development of a reverse conversion to Python is underway, using cython and the PyBind library. It is planned to compare the execution speeds of methods in C ++ and in Python.
 
 ## License
 
