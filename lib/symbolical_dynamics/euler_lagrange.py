@@ -19,7 +19,8 @@ class MechanicalSystem:
                  q,  # the vector of generalized coordinates
                  K=0,  # kinetic energy as function of generalized coordinates and velocities
                  P=0,  # potential energy as function of potential coordinates
-                 R=0  # rayleigh dissipative function as function of coordinates and velocities
+                 R=0,  # rayleigh dissipative function as function of coordinates and velocities
+                 headers=list()
                  ):
 
         # q : nx1 vector of generalized coordinates
@@ -57,6 +58,7 @@ class MechanicalSystem:
         # Rayleigh dissipation function
         self.R = R
         # self.t = symbols('t')
+        self.headers = headers
 
     def __del__(self):
         print("System was destructed")
@@ -116,8 +118,7 @@ class MechanicalSystem:
         # TODO: find a way how to get rid from two identical cycles
         for i in range(self.n):
             # find the matrix if coriolis and centrifugal
-            self.C[i, :] = Matrix([self.p[i]]).jacobian(self.q)
-            - (self.dq).T * diff(self.D, self.q[i]) / 2
+            self.C[i, :] = Matrix([self.p[i]]).jacobian(self.q) - (self.dq).T * diff(self.D, self.q[i]) / 2
             # find the coriolis and centrifugal force
             self.c[i] = self.C[i, :] * self.dq
 
@@ -184,21 +185,18 @@ class MechanicalSystem:
         self.h_num = lambdify([self.q, self.dq], self.h)
         return self.h_num
 
-    def get_headers(self, feature_names=None, dir=None, create_cpp=False, file_name=None, class_name=None):
+    def create_headers(self, feature_names=None, directory=''):
         """
         Create and save C headers
-        @param dict feature_names: custom names for headers, should be dict {'numerical_momentum": 'mom_name',
-                                                                        'numerical_inertia': 'in_name' ... }
-        @param string dir: directory to save headers, IT MUST END WITH '/' SYMBOL
-        @param bool create_cpp: create C++ class or not
-        @param string file_name: name for C++ file
-        @param string class_name: Name of the class for C++ file
+        @param dict feature_names: custom names for headers, should be dict {'numerical_momentum": 'momentum_name',
+                                                                        'numerical_inertia': 'inertia_name' ... }
+        @param string directory: directory to save headers, IT MUST END WITH '/' SYMBOL
         """
         # Default names for headers
         default_features = {'numerical_momentum': self.p, 'numerical_inertia': self.D, 'numerical_coriolis': self.C,
                             'numerical_potential': self.g, 'numerical_combined': self.h}
 
-        if bool(feature_names is None):
+        if feature_names is None:
             numerical_features = default_features.copy()
         else:
             # Change headers' names if necessary
@@ -206,58 +204,66 @@ class MechanicalSystem:
             for key in default_features.keys():
                 numerical_features[feature_names[key]] = default_features[key]
 
-        if not os.path.isdir(dir) and dir is not None:
+        if directory != '' and not os.path.isdir(directory):
             # Create new directory if necessary
-            os.mkdir(dir)
-
-        if create_cpp:
-            # Array for all created headers to include them later in C++ file
-            header_func = []
+            os.mkdir(directory)
 
         for key in numerical_features.keys():
-            # For each feature create correcsponding header
+            # For each feature create corresponding header
             [(c_name, c_code), (h_name, c_header)] = codegen((key, numerical_features[key]), "C99", key,
                                                              header=False, empty=False)
             # Since generated code includes itself by default
             # Cut first line of a code
             k = 0
             right_c_code = str()
-            for i in range(len(c_code)):
-                if c_code[i] == '"':
+            for index, value in enumerate(c_code):
+                if value == '"':
                     k += 1
                     if k > 1:
-                        right_c_code = c_code[i + 2:]
+                        right_c_code = c_code[index + 2:]
                         break
 
             # Create and save header
-            new_header = open(dir + h_name, "w")
+            new_header = open(directory + h_name, "w")
             new_header.write(right_c_code)
             new_header.close()
-            if create_cpp:
-                # Save all created headers
-                header_func.append(h_name)
+            self.headers.append(h_name)
 
-        if create_cpp:
-            # Create new C++ file
-            if file_name is not None:
-                # Create C++ file with custom name if requested
-                cpp_code = open(dir + file_name + ".cpp", "w")
-            else:
-                cpp_code = open(dir + "euler_lagrange.cpp", "w")
-            cpp_code.write("#include <math.h>\n")
-            for header in header_func:
-                # Include all created headers
-                cpp_code.write(f"#include \"{header}\"\n")
-            if class_name is not None:
-                # Create C++ file with custom class name if requested
-                cpp_code.write(f"class {class_name} {{ \n \t public:\n")
-            else:
-                cpp_code.write("class MechanicalSystem {\n \t public:\n")
-            for func in header_func:
-                # Write functions from each header
-                cpp_code.write("\t \t" + open(dir + func, 'r').readlines()[1][:-3] + ";\n")
-            cpp_code.write("};")
-            cpp_code.close()
+    def create_cpp_file(self, directory='', file_name=None, class_name=None):
+        """
+        Automatically create C++ file that includes all created headers and all functions from these headers
+        @param string directory: directory where to save C++ file,
+                                THIS DIRECTORY HAS TO BE THE SAME WHERE HEADERS ARE SAVED
+        @param string file_name: custom name of C++ file
+        @param string class_name: custom name for class inside C++ file
+        """
+        if directory != '' and not os.path.isdir(directory):
+            # Create new directory if necessary
+            os.mkdir(directory)
+
+        if file_name is not None:
+            # Create C++ file with custom name if requested
+            cpp_code = open(directory + file_name + ".cpp", "w")
+        else:
+            cpp_code = open(directory + "euler_lagrange.cpp", "w")
+        cpp_code.write("#include <math.h>\n")
+
+        for header in self.headers:
+            # Include all created headers in code
+            cpp_code.write(f"#include \"{header}\"\n")
+
+        if class_name is not None:
+            # Create C++ file with custom class name if requested
+            cpp_code.write(f"class {class_name} {{ \n \t public:\n")
+        else:
+            cpp_code.write("class MechanicalSystem {\n \t public:\n")
+
+        for func in self.headers:
+            # Write functions from each header
+            cpp_code.write("\t \t" + open(directory + func, 'r').readlines()[1][:-3] + ";\n")
+
+        cpp_code.write("};")
+        cpp_code.close()
 
     # //////////////////////////////////
     # ///// WORK IN PROGRESS.... ///////

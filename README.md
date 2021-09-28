@@ -43,12 +43,13 @@ python3 setup.py develop # for Windows
 ```
 
 ### Importing phase
-Then, you need to import Mechanicalsystem class from euler_lagrange
+#### Python
+Then, you need to import Mechanicalsystem class from euler_lagrange to your mechanical system, use one of our examples in the example folder
 
 ```python
 from lib.symbolical_dynamics.euler_lagrange import MechanicalSystem
 ```
-### Intiialization of you system
+### Intialization of your system
 
 ```python
 name_of_your_system = MechanicalSystem(q,K,P,R)
@@ -72,8 +73,8 @@ name_of_your_system.get_lagrange_equations(simp=True)
 ```
 The model then produces an equation, and results a combined terms of potential energy and inertia matrix.
   
-Great! Now, your system is initialized with values. You can use them both in C, C++ and Python Below we present the usage of both cases.
-#### Python
+Great! Now, your system is initialized with values. You can use them both in Python, C and C++ Below we present the usage of both cases.
+
 ```python
 print(f'\nEquations of motion:\n{name_of_your_system.Q}')
 print(f'\nInertia matrix:\n{name_of_your_system.D}')
@@ -105,7 +106,7 @@ The file euler_lagrange.cpp will contain ready-to-use functions and you can impo
 ```
 ## Development
 
-Want to contribute? Check out our [contribution policy](CONTRIBUTE.md)
+Want to contribute? Check out our [contribution policy](CONTRIBUTING.md)
 ## Technical stack
 - [Python] 🐍 
 - [SymPy] (Python) 🧮
