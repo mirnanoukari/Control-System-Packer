@@ -16,4 +16,4 @@ Contact one of us in Telegram:
 [@amortized](https://t.me/amortized)
 [@bearness](https://t.me/bearness)
 [@Mirna\_nu](https://t.me/Mirna_nu)
-[@DefRiseOut](https://t.me/DefRiseOut)
+
