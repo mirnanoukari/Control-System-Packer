@@ -2,15 +2,11 @@
 
 A documentation for various Control System Packer project design decisions for public reference.
 
-### 	1. C headers
-
-​			*why choosing C headers?*
-
-​				C is the still the ideal choice. It is the most suitable for embedded systems (has 				a dedicated function within a larger mechanical or electronic system) due to 				its performance, can deal with low level issues more proficiently, and  				portability.
-
 ## Design Patterns
 
 ### 	Adapter Pattern
+
+In this simple project, we could only see one pattern that can fit for it. We have one mechanical system class in python, using Sympy Codegen the python class (and the entire python code) is the adapter that generates a C++ mechanical system class.
 
 ![pattern](https://drive.google.com/uc?export=view&id=1tT0nPSWq07iyYftKuTsJAVE8i_pI782d)
 
@@ -20,6 +16,8 @@ A documentation for various Control System Packer project design decisions for p
 ![views](https://drive.google.com/uc?export=view&id=1McffMzsr15ay7Oef5M6L28VvHuLf_vFA)
 
 ### Class diagram
+
+The following is a generated class diagram from our python MechanicalSystem class. It shows all the parameters needed for calculations to get desired control.
 
 ![class](https://drive.google.com/uc?export=view&id=1WfqgLHuwCF4okHD4LZZKSLPWPAh1b_Oa)
 
