@@ -64,4 +64,3 @@ print(f'\nGeneralized momenta:\n{double_pendulum.p}')
 
 double_pendulum.create_headers()
 double_pendulum.create_cpp_file()
-double_pendulum.bind_cpp_file()
