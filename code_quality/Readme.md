@@ -1,4 +1,6 @@
 # Code Quality
+Whatch our YouTube video:
+[![Watch the video](https://img.youtube.com/vi/rrzIb2yXKmg/maxresdefault.jpg)](https://youtu.be/rrzIb2yXKmg)
 
 ### Code Decisions
 
