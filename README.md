@@ -158,6 +158,8 @@ Method of Lagrange multipliers - strategy for finding the local maxima and minim
 ## Further Development
 At the moment, the development of a reverse conversion to Python is underway, using cython and the PyBind library. It is planned to compare the execution speeds of methods in C ++ and in Python.
 
+We are also working on uploading this package to PyPI so that it will be an official package to use for everyone.
+
 ## License
 
 [MIT](https://github.com/mirnanoukari/Control-System-Packer/blob/main/LICENSE) 
