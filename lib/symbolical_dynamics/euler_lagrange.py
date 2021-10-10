@@ -219,7 +219,7 @@ class MechanicalSystem:
                                                              header=False, empty=False)
 
             # Save the parameters of the generated header.
-            self.saveParameters(c_name, numerical_features[key].atoms(Symbol))
+            self.saveParameters(h_name, numerical_features[key].atoms(Symbol))
 
             # Since generated code includes itself by default
             # Cut first line of a code
@@ -238,12 +238,12 @@ class MechanicalSystem:
             new_header.close()
             self.headers.append(h_name)
 
-    def saveParameters(self, c_name, params):
+    def saveParameters(self, name, params):
         parameters = list(params)
         parameters = list(map(str, parameters))
         parameters.sort()
         parameters = list(map(Symbol, parameters))
-        self.header_parameters[c_name] = parameters
+        self.header_parameters[name] = parameters
 
     def create_cpp_file(self, directory='', file_name=None, class_name=None):
         """
@@ -300,7 +300,10 @@ class MechanicalSystem:
         cpp_code.write("\t\t.def(py::init<const std::string &>())")
         for func in self.headers:
             name = func[0:-2]
-            cpp_code.write('\n\t\t.def("' + name + '", &' + self.cpp_class_name + '::' + name + ')')
+            cpp_code.write('\n\t\t.def("' + name + '", &' + self.cpp_class_name + '::' + name)
+            for parameter in self.header_parameters[func]:
+                cpp_code.write(', py::arg("' + str(parameter) + '")')
+            cpp_code.write(")")
         cpp_code.write(";\n}")
         cpp_code.close()
 
