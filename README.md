@@ -107,9 +107,9 @@ Now you can simply import these headers, and use built-in functions to find exac
 #include "numerical_combined.h"
 #include <stdio.h>
 int main(void) {
-   result = ... ; // initialize the array to store the result
+   double result[2] = {0}; // initialize the array to store the result
    numerical_combined(2,3,4,5,6,7,8,9,0,12,21,result);  // Example of usage of generated headers
-   printf("%d", result[0])
+   printf("%d", result[0]);
    return 0;
 }
 ```
