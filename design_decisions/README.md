@@ -29,9 +29,9 @@ The Allocation View is missing because it makes little sense for this project. S
 ### Class diagram
 
 The following is a generated class diagram from our Python MechanicalSystem class. 
-It shows all the parameters needed for calculations to get desired control and generate C headers.
+It shows all the parameters needed for calculations to get desired control and generate C headers. If you want to know what exactly each parameter stands for, check our code in lib/symbolical_dynamics/euler_lagrange.py
 
-For simplicity, the project does not rely on OOP principles, but rather uses the class as a collection of methods, that a programmer can use.
+Our project is simple, it does not rely on OOP principles, but rather uses the class as a collection of methods, that a programmer can use.
 
 ![class](https://drive.google.com/uc?export=view&id=1WfqgLHuwCF4okHD4LZZKSLPWPAh1b_Oa)
 
