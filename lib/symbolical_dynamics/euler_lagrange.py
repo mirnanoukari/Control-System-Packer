@@ -20,7 +20,7 @@ class MechanicalSystem:
                  K=0,  # kinetic energy as function of generalized coordinates and velocities
                  P=0,  # potential energy as function of potential coordinates
                  R=0,  # rayleigh dissipative function as function of coordinates and velocities
-                 headers=list()
+                 headers=list() # list with names for generated C headers
                  ):
 
         # q : nx1 vector of generalized coordinates
@@ -149,7 +149,6 @@ class MechanicalSystem:
         generalized momenta: p(q, dq)
         """
         self.p_num = lambdify([self.q, self.dq], self.p)
-        print(self.p_num)
         return self.p_num
 
     def get_numerical_inertia(self):
