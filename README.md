@@ -1,8 +1,32 @@
 # Control System Packer
-
 ![alt text](https://i.ibb.co/Ph0x5bG/Untitled.png)
 
+
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=mirnanoukari_Control-System-Packer&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=mirnanoukari_Control-System-Packer)
+[![Version](https://img.shields.io/badge/CSPacker-v.%201.0.0-blue)](https://github.com/mirnanoukari/Control-System-Packer/releases/tag/v.1.0.0)
+[![Licence](https://img.shields.io/badge/license-MIT-orange)](https://github.com/mirnanoukari/Control-System-Packer/blob/symbolical_dynamics/LICENSE)
+
 Control System Packer is a lightweight, low-level program to transform energy equations into the compact libraries for control systems. Packer supports Python 🐍, C 💻 and C++ 💻libraries.  
+
+## Table of Contents
+- [Control System Packer](#control-system-packer)
+  * [Features](#features)
+  * [Why is our project useful and better than the existing solutions?](#why-is-our-project-useful-and-better-than-the-existing-solutions)
+  * [Supported languages](#supported-languages)
+  * [Getting Started](#getting-started)
+    + [Cloning a repository](#cloning-a-repository)
+    + [Importing phase](#importing-phase)
+      - [Python](#python)
+    + [Initialization of your system](#initialization-of-your-system)
+    + [Getting lagrange equations](#getting-lagrange-equations)
+      - [C](#c)
+      - [C++](#c-1)
+      - [Python](#python)
+  * [Development](#development)
+  * [Technical stack](#technical-stack)
+  * [Glossary](#glossary)
+  * [Further Development](#further-development)
+  * [License](#license)
 
 ## Features
 
@@ -14,12 +38,14 @@ Control System Packer is a lightweight, low-level program to transform energy eq
 > can just type in the energy equations and obtain ready-to-use libraries.
 > You can import them straight away into the robot for the control!
 
+![descrip](https://drive.google.com/uc?export=view&id=10ZnH-RKtUVluY_jIP1SGduzLt8r4Uy-2)
+
 ## Why is our project useful and better than the existing solutions?
 - Our system works with any mechanical model. Every model has it's own general positions and energy equations.
 - Most of the programmers used to code and transform these equations manually, there was no popular tool to solve this issue.  
 - Complex control tasks are done in high-level PLs (such as Python), but low-level computers usually work this C or C++. We provide fast and easy transition from Python to C or C++.
 ## Supported languages
-Packer now supports 2 types of the language libraries:
+Packer now supports 3 types of the language libraries:
 - [Python] - Python libraries
 - [C++] - C++ libraries
 - [C] - C headers
@@ -32,23 +58,15 @@ Packer now supports 2 types of the language libraries:
  ```sh
  git clone https://github.com/mirnanoukari/Control-System-Packer.git
  ```
-### Installing the package
-You can install the package from our branch symbolical-dynamics/lib/dir by running the command:
-
-```sh
-sudo python3 setup.py develop # for Linux
-```
-```sh
-python3 setup.py develop # for Windows
-```
-
+ 
 ### Importing phase
-Then, you need to import Mechanicalsystem class from euler_lagrange
+#### Python
+Then, you need to import Mechanicalsystem class from euler_lagrange to your mechanical system, use one of our examples in the example folder
 
 ```python
 from lib.symbolical_dynamics.euler_lagrange import MechanicalSystem
 ```
-### Intiialization of you system
+### Initialization of your system
 
 ```python
 name_of_your_system = MechanicalSystem(q,K,P,R)
@@ -71,9 +89,9 @@ name_of_your_system.set_rayleigh(R)
 name_of_your_system.get_lagrange_equations(simp=True)
 ```
 The model then produces an equation, and results a combined terms of potential energy and inertia matrix.
-  
-Great! Now, your system is initialized with values. You can use them both in C, C++ and Python Below we present the usage of both cases.
-#### Python
+
+Great! Now, your system is initialized with values. You can use them both in Python, C and C++ Below we present the usage of both cases.
+
 ```python
 print(f'\nEquations of motion:\n{name_of_your_system.Q}')
 print(f'\nInertia matrix:\n{name_of_your_system.D}')
@@ -89,6 +107,7 @@ Now you can simply import these headers, and use built-in functions to find exac
 #include "numerical_combined.h"
 #include <stdio.h>
 int main(void) {
+   result = ... ; // initialize the array to store the result
    numerical_combined(2,3,4,5,6,7,8,9,0,12,21,result);  // Example of usage of generated headers
    printf("%d", result[0])
    return 0;
@@ -99,13 +118,21 @@ In your python file, set create_cpp to True and generate an optional cpp class f
 ```python
 numerical_combined.get_headers(create_cpp=True)
 ```
-The file euler_lagrange.cpp will contain ready-to-use functions and you can import it in your code:
+The file euler_lagrange.cpp will contain ready-to-use functions, and you can import it in your code:
 ```cpp
 #include "euler_lagrange.cpp"
 ```
+#### Python
+You can access this C++ library in python using PyBind11. This will automatically add the PyBind code to the cpp file.
+```python
+name_of_your_system.bind_cpp_file()
+```
+Afterwards, you will need to run the cpp file. It will create a python module you can import, and it will use the C++ implementation.
+
+Here is a [full tutorial](https://pybind11.readthedocs.io/en/stable/installing.html) on how to install and work with pybind11.
 ## Development
 
-Want to contribute? Check out our [contribution policy](CONTRIBUTE.md)
+Want to contribute? Check out our [contribution policy](CONTRIBUTING.md)
 ## Technical stack
 - [Python] 🐍 
 - [SymPy] (Python) 🧮
@@ -128,6 +155,8 @@ Energy equations - potential and kinetic energies equations in symbolic format.
 
 Method of Lagrange multipliers - strategy for finding the local maxima and minima of a function subject to equality constraints.
 
+## Further Development
+At the moment, the development of a reverse conversion to Python is underway, using cython and the PyBind library. It is planned to compare the execution speeds of methods in C ++ and in Python.
 
 ## License
 
