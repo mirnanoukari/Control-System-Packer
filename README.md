@@ -18,7 +18,7 @@ Control System Packer is a lightweight, low-level program to transform energy eq
     + [Installing the package](#installing-the-package)
     + [Importing phase](#importing-phase)
       - [Python](#python)
-    + [Intialization of your system](#intialization-of-your-system)
+    + [Initialization of your system](#intialization-of-your-system)
     + [Getting lagrange equations](#getting-lagrange-equations)
       - [C](#c)
       - [C++](#c-1)
@@ -37,6 +37,8 @@ Control System Packer is a lightweight, low-level program to transform energy eq
 > Our goal is to make the lives of robotics developers easier, so you
 > can just type in the energy equations and obtain ready-to-use libraries.
 > You can import them straight away into the robot for the control!
+
+![descrip](https://drive.google.com/uc?export=view&id=10ZnH-RKtUVluY_jIP1SGduzLt8r4Uy-2)
 
 ## Why is our project useful and better than the existing solutions?
 - Our system works with any mechanical model. Every model has it's own general positions and energy equations.
@@ -73,7 +75,7 @@ Then, you need to import Mechanicalsystem class from euler_lagrange to your mech
 ```python
 from lib.symbolical_dynamics.euler_lagrange import MechanicalSystem
 ```
-### Intialization of your system
+### Initialization of your system
 
 ```python
 name_of_your_system = MechanicalSystem(q,K,P,R)
@@ -96,7 +98,7 @@ name_of_your_system.set_rayleigh(R)
 name_of_your_system.get_lagrange_equations(simp=True)
 ```
 The model then produces an equation, and results a combined terms of potential energy and inertia matrix.
-  
+
 Great! Now, your system is initialized with values. You can use them both in Python, C and C++ Below we present the usage of both cases.
 
 ```python
