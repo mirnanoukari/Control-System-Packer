@@ -266,7 +266,7 @@ class MechanicalSystem:
             cpp_code = open(directory + "euler_lagrange.cpp", "w")
             self.cpp_path = directory + "euler_lagrange.cpp"
             self.cpp_file = "euler_lagrange"
-        cpp_code.write("#include <math.h>\n#include <pybind11/pybind11.h>\n\nnamespace py = pybind11;\n")
+        cpp_code.write("#include <math.h>\n")
 
         for header in self.headers:
             # Include all created headers in code
@@ -285,26 +285,6 @@ class MechanicalSystem:
             cpp_code.write("\t \t" + open(directory + func, 'r').readlines()[1][:-3] + ";\n")
 
         cpp_code.write("};")
-        cpp_code.close()
-
-    def bind_cpp_file(self):
-        """
-        Automatically generates codes for wrapping the cpp file using PyBind.
-
-        The cpp file must be already generated, and remain in the same directory.
-        """
-        cpp_code = open(self.cpp_path, "a")
-        cpp_code.write("\n\n")
-        cpp_code.write("PYBIND11_MODULE(" + self.cpp_file + ",m) {\n")
-        cpp_code.write('\tpy::class_<' + self.cpp_class_name + '>(m, "' + self.cpp_class_name + '")\n')
-        cpp_code.write("\t\t.def(py::init<const std::string &>())")
-        for func in self.headers:
-            name = func[0:-2]
-            cpp_code.write('\n\t\t.def("' + name + '", &' + self.cpp_class_name + '::' + name)
-            for parameter in self.header_parameters[func]:
-                cpp_code.write(', py::arg("' + str(parameter) + '")')
-            cpp_code.write(")")
-        cpp_code.write(";\n}")
         cpp_code.close()
 
     # //////////////////////////////////
