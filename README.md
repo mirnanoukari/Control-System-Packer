@@ -15,10 +15,9 @@ Control System Packer is a lightweight, low-level program to transform energy eq
   * [Supported languages](#supported-languages)
   * [Getting Started](#getting-started)
     + [Cloning a repository](#cloning-a-repository)
-    + [Installing the package](#installing-the-package)
     + [Importing phase](#importing-phase)
       - [Python](#python)
-    + [Initialization of your system](#intialization-of-your-system)
+    + [Initialization of your system](#initialization-of-your-system)
     + [Getting lagrange equations](#getting-lagrange-equations)
       - [C](#c)
       - [C++](#c-1)
@@ -59,16 +58,7 @@ Packer now supports 3 types of the language libraries:
  ```sh
  git clone https://github.com/mirnanoukari/Control-System-Packer.git
  ```
-### Installing the package
-You can install the package from our branch symbolical-dynamics/lib/dir by running the command:
-
-```sh
-sudo python3 setup.py develop # for Linux
-```
-```sh
-python3 setup.py develop # for Windows
-```
-
+ 
 ### Importing phase
 #### Python
 Then, you need to import Mechanicalsystem class from euler_lagrange to your mechanical system, use one of our examples in the example folder
