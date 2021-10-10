@@ -6,7 +6,7 @@ A documentation for various Control System Packer project design decisions for p
 
 ### 	Adapter Pattern
 
-In this simple project, we could only see one pattern that can fit for it. We have one mechanical system class in python, using Sympy Codegen the python class (and the entire python code) is the adapter that generates a C++ mechanical system class.
+In this simple project, we could only see one pattern that can fit for it. We have one mechanical system class in Python, using Sympy Codegen the python class (and the entire python code) is the adapter that generates a C++ mechanical system class.
 
 ![pattern](https://drive.google.com/uc?export=view&id=1tT0nPSWq07iyYftKuTsJAVE8i_pI782d)
 
@@ -17,7 +17,7 @@ In this simple project, we could only see one pattern that can fit for it. We ha
 
 ### Class diagram
 
-The following is a generated class diagram from our python MechanicalSystem class. It shows all the parameters needed for calculations to get desired control.
+The following is a generated class diagram from our Python MechanicalSystem class. It shows all the parameters needed for calculations to get desired control and generate C headers.
 
 ![class](https://drive.google.com/uc?export=view&id=1WfqgLHuwCF4okHD4LZZKSLPWPAh1b_Oa)
 
