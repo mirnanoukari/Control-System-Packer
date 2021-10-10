@@ -25,7 +25,7 @@ Instead of focusing on perfect OOP, we use this class as a collection of methods
 ### Views
 
 ![views](https://drive.google.com/uc?export=view&id=1McffMzsr15ay7Oef5M6L28VvHuLf_vFA)
-
+The Allocation View is missing because it makes little sense for this project. Since this is a piece of software, we do not bother with managing of hardware and resources.
 ### Class diagram
 
 The following is a generated class diagram from our Python MechanicalSystem class. 
