@@ -17,7 +17,10 @@ In this simple project, we could only see one pattern that can fit for it. We ha
 
 ### Class diagram
 
-The following is a generated class diagram from our Python MechanicalSystem class. It shows all the parameters needed for calculations to get desired control and generate C headers.
+The following is a generated class diagram from our Python MechanicalSystem class. 
+It shows all the parameters needed for calculations to get desired control and generate C headers.
+
+For simplicity, the project does not rely on OOP principles, but rather uses the class as a collection of methods, that a programmer can use.
 
 ![class](https://drive.google.com/uc?export=view&id=1WfqgLHuwCF4okHD4LZZKSLPWPAh1b_Oa)
 

@@ -288,6 +288,11 @@ class MechanicalSystem:
         cpp_code.close()
 
     def bind_cpp_file(self):
+        """
+        Automatically generates codes for wrapping the cpp file using PyBind.
+
+        The cpp file must be already generated, and remain in the same directory.
+        """
         cpp_code = open(self.cpp_path, "a")
         cpp_code.write("\n\n")
         cpp_code.write("PYBIND11_MODULE(" + self.cpp_file + ",m) {\n")
