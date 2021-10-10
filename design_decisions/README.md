@@ -10,6 +10,17 @@ In this simple project, we could only see one pattern that can fit for it. We ha
 
 ![pattern](https://drive.google.com/uc?export=view&id=1tT0nPSWq07iyYftKuTsJAVE8i_pI782d)
 
+## SOLID Principles
+For this project, since the goal is more or less a simple stream-lined process, we have decided to not follow all SOLID principles.
+
+Namely, the main class of the project contains all the functions for convenience, and can be easily modified at any stage of execution.
+Meaning it violates Single Responsibility and Open/Close principles.
+
+This is done because the project itself is a convenience tool for robotics, mechanics programmers and other - people working with control systems in coding.
+We leave the opportunity to the User to modify the variables according to their problem.
+
+Instead of focusing on perfect OOP, we use this class as a collection of methods, that the User can easily import into their program.
+
 ## UML diagrams
 ### Views
 
