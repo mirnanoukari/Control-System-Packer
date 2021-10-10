@@ -49,7 +49,7 @@ class MechanicalSystem:
         self.d = zeros(self.n, 1)
         # h is nx1 vector of combined coriolis, potential and dissipative forces
         self.h = zeros(self.n, 1)
-        # Q is nx1 vector of generalized coordinates
+        # Q is nx1 vector of generalized forces
         self.Q = zeros(self.n, 1)
         # K is kinetic energy
         self.K = K
