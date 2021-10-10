@@ -1,5 +1,5 @@
-from .misc._diff import diff_symbols
-from sympy import diff, zeros, Matrix, lambdify
+from lib.symbolical_dynamics.misc._diff import diff_symbols
+from sympy import diff, zeros, Matrix, lambdify, Symbol
 from sympy.utilities.codegen import codegen
 import os
 
@@ -59,6 +59,12 @@ class MechanicalSystem:
         self.R = R
         # self.t = symbols('t')
         self.headers = headers
+        # Parameters is a list of symbols (other than generalized coordinates) in the expressions.
+        self.header_parameters = {}
+        # The name of the c++ file and the path.
+        self.cpp_path = ""
+        self.cpp_file = ""
+        self.cpp_class_name = ""
 
     def __del__(self):
         print("System was destructed")
@@ -211,6 +217,10 @@ class MechanicalSystem:
             # For each feature create corresponding header
             [(c_name, c_code), (h_name, c_header)] = codegen((key, numerical_features[key]), "C99", key,
                                                              header=False, empty=False)
+
+            # Save the parameters of the generated header.
+            self.saveParameters(c_name, numerical_features[key].atoms(Symbol))
+
             # Since generated code includes itself by default
             # Cut first line of a code
             k = 0
@@ -228,6 +238,13 @@ class MechanicalSystem:
             new_header.close()
             self.headers.append(h_name)
 
+    def saveParameters(self, c_name, params):
+        parameters = list(params)
+        parameters = list(map(str, parameters))
+        parameters.sort()
+        parameters = list(map(Symbol, parameters))
+        self.header_parameters[c_name] = parameters
+
     def create_cpp_file(self, directory='', file_name=None, class_name=None):
         """
         Automatically create C++ file that includes all created headers and all functions from these headers
@@ -243,9 +260,13 @@ class MechanicalSystem:
         if file_name is not None:
             # Create C++ file with custom name if requested
             cpp_code = open(directory + file_name + ".cpp", "w")
+            self.cpp_path = directory + file_name + ".cpp"
+            self.cpp_file = file_name
         else:
             cpp_code = open(directory + "euler_lagrange.cpp", "w")
-        cpp_code.write("#include <math.h>\n")
+            self.cpp_path = directory + "euler_lagrange.cpp"
+            self.cpp_file = "euler_lagrange"
+        cpp_code.write("#include <math.h>\n#include <pybind11/pybind11.h>\n\nnamespace py = pybind11;\n")
 
         for header in self.headers:
             # Include all created headers in code
@@ -254,14 +275,28 @@ class MechanicalSystem:
         if class_name is not None:
             # Create C++ file with custom class name if requested
             cpp_code.write(f"class {class_name} {{ \n \t public:\n")
+            self.cpp_class_name = class_name
         else:
             cpp_code.write("class MechanicalSystem {\n \t public:\n")
+            self.cpp_class_name = "MechanicalSystem"
 
         for func in self.headers:
             # Write functions from each header
             cpp_code.write("\t \t" + open(directory + func, 'r').readlines()[1][:-3] + ";\n")
 
         cpp_code.write("};")
+        cpp_code.close()
+
+    def bind_cpp_file(self):
+        cpp_code = open(self.cpp_path, "a")
+        cpp_code.write("\n\n")
+        cpp_code.write("PYBIND11_MODULE(" + self.cpp_file + ",m) {\n")
+        cpp_code.write('\tpy::class_<' + self.cpp_class_name + '>(m, "' + self.cpp_class_name + '")\n')
+        cpp_code.write("\t\t.def(py::init<const std::string &>())")
+        for func in self.headers:
+            name = func[0:-2]
+            cpp_code.write('\n\t\t.def("' + name + '", &' + self.cpp_class_name + '::' + name + ')')
+        cpp_code.write(";\n}")
         cpp_code.close()
 
     # //////////////////////////////////
@@ -311,9 +346,6 @@ class MechanicalSystem:
         # invD = self.D.inv()
         # self.A[:self.n, self.n:] = eye(self.n)
         # self.B[self.n:, :] = invD
-        pass
-
-    def setParameters(self):
         pass
 
     def calcLinearization(self):

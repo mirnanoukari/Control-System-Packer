@@ -5,7 +5,7 @@ from sympy.utilities.autowrap import autowrap
 from sympy.utilities.codegen import codegen
 
 
-def wraping(expression):
+def wrapping(expression):
     return autowrap(expression, backend='cython')
 
 
@@ -64,3 +64,4 @@ print(f'\nGeneralized momenta:\n{double_pendulum.p}')
 
 double_pendulum.create_headers()
 double_pendulum.create_cpp_file()
+double_pendulum.bind_cpp_file()
