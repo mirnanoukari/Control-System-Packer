@@ -1,6 +1,4 @@
 # Code Quality
-Whatch our YouTube video:
-[![Watch the video](https://img.youtube.com/vi/rrzIb2yXKmg/maxresdefault.jpg)](https://youtu.be/rrzIb2yXKmg)
 
 ### Code Decisions
 
@@ -12,7 +10,8 @@ Whatch our YouTube video:
 
 ### Demo
 
-
+Watch our YouTube video tutorial:
+[![Watch the video](https://img.youtube.com/vi/rrzIb2yXKmg/maxresdefault.jpg)](https://youtu.be/rrzIb2yXKmg)
 
 ### Static Analyzers
 
