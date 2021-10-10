@@ -127,10 +127,18 @@ In your python file, set create_cpp to True and generate an optional cpp class f
 ```python
 numerical_combined.get_headers(create_cpp=True)
 ```
-The file euler_lagrange.cpp will contain ready-to-use functions and you can import it in your code:
+The file euler_lagrange.cpp will contain ready-to-use functions, and you can import it in your code:
 ```cpp
 #include "euler_lagrange.cpp"
 ```
+#### Python
+You can access this C++ library in python using PyBind11. This will automatically add the PyBind code to the cpp file.
+```python
+name_of_your_system.bind_cpp_file()
+```
+Afterwards, you will need to run the cpp file. It will create a python module you can import, and it will use the C++ implementation.
+
+Here is a [full tutorial](https://pybind11.readthedocs.io/en/stable/installing.html) on how to install and work with pybind11.
 ## Development
 
 Want to contribute? Check out our [contribution policy](CONTRIBUTING.md)
