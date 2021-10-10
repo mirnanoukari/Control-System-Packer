@@ -22,6 +22,7 @@ Control System Packer is a lightweight, low-level program to transform energy eq
     + [Getting lagrange equations](#getting-lagrange-equations)
       - [C](#c)
       - [C++](#c-1)
+      - [Python](#python)
   * [Development](#development)
   * [Technical stack](#technical-stack)
   * [Glossary](#glossary)
@@ -45,7 +46,7 @@ Control System Packer is a lightweight, low-level program to transform energy eq
 - Most of the programmers used to code and transform these equations manually, there was no popular tool to solve this issue.  
 - Complex control tasks are done in high-level PLs (such as Python), but low-level computers usually work this C or C++. We provide fast and easy transition from Python to C or C++.
 ## Supported languages
-Packer now supports 2 types of the language libraries:
+Packer now supports 3 types of the language libraries:
 - [Python] - Python libraries
 - [C++] - C++ libraries
 - [C] - C headers
