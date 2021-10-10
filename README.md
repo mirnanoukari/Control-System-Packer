@@ -122,15 +122,6 @@ The file euler_lagrange.cpp will contain ready-to-use functions, and you can imp
 ```cpp
 #include "euler_lagrange.cpp"
 ```
-#### Python
-<strong>Warning:</strong> this feature is not supported in 1.0.0 release. 
-You can access this C++ library in python using PyBind11. This will automatically add the PyBind code to the cpp file.
-```python
-name_of_your_system.bind_cpp_file()
-```
-Afterwards, you will need to run the cpp file. It will create a python module you can import, and it will use the C++ implementation.
-
-Here is a [full tutorial](https://pybind11.readthedocs.io/en/stable/installing.html) on how to install and work with pybind11.
 ## Development
 
 Want to contribute? Check out our [contribution policy](CONTRIBUTING.md)
