@@ -37,7 +37,7 @@ Our project is simple, it does not rely on OOP principles, but rather uses the c
 
 ## Contribution
 
-1. Create a pull request by filling out the [template](https://github.com/mirnanoukari/Control-System-Packer/blob/main/Design_decisions/TEMPLATE.md) and saving it under a unique name.
+1. Create a pull request by filling out the [template](https://github.com/mirnanoukari/Control-System-Packer/blob/main/design_decisions/TEMPLATE.md) and saving it under a unique name.
 2. Document for and against arguments.
 3. Document the decision.
 4. Merge pull request.
